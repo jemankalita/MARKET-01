@@ -1,0 +1,5 @@
+node_modules
+dist
+coverage
+.impeccable/config.local.json
+.DS_Store

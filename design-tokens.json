@@ -1,0 +1,26 @@
+{
+  "name": "MARKET/01",
+  "colors": {
+    "black": "#000000",
+    "offwhite": "#F2F0EA",
+    "red": "#E60000"
+  },
+  "typography": {
+    "display": "Inter",
+    "body": "Inter",
+    "data": "JetBrains Mono",
+    "scale": [12, 16, 24, 48, 96]
+  },
+  "spacing": {
+    "unit": 8
+  },
+  "radius": 0,
+  "shadows": {
+    "s": "4px 4px 0 #000",
+    "m": "6px 6px 0 #000",
+    "l": "8px 8px 0 #000"
+  },
+  "grid": {
+    "columns": 12
+  }
+}
