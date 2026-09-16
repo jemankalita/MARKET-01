@@ -26,13 +26,12 @@ export function Nav({ onSearch }) {
       </nav>
       <button className="nav-search" type="button" onClick={onSearch} aria-label="Search MARKET/01">
         <SearchMark />
-        <span className="data">/</span>
       </button>
       <div className="nav-meta">
-        <span>{state.clock.date}</span>
-        <span>{state.clock.time} IST</span>
-        <button type="button" onClick={toggleLive} aria-pressed={state.live}>
-          <span className={state.live ? "live-dot on" : "live-dot"} /> {state.live ? "LIVE" : "LIVE"}
+        <span className="meta">{state.clock.date}</span>
+        <span className="meta">{state.clock.time} IST</span>
+        <button className="nav-live" type="button" onClick={toggleLive} aria-pressed={state.live}>
+          <span className={state.live ? "live-dot on" : "live-dot"} /> LIVE
         </button>
       </div>
     </header>
@@ -41,7 +40,7 @@ export function Nav({ onSearch }) {
 
 function SearchMark() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true">
       <circle cx="6.5" cy="6.5" r="4.5" fill="none" stroke="currentColor" strokeWidth="1.5" />
       <path d="M10 10 L14 14" stroke="currentColor" strokeWidth="1.5" />
     </svg>

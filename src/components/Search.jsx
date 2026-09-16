@@ -43,10 +43,10 @@ export function Search({ onClose }) {
               onClose();
             }}
           >
-            <span>
+            <span className="search-hit-meta">
               {String(i + 1).padStart(2, "0")} / {r.type}
             </span>
-            <span>{r.title}</span>
+            <span className="search-hit-title">{r.title}</span>
           </button>
         ))}
         {q && results.length === 0 ? (

@@ -18,7 +18,7 @@ export function Sectors() {
         Sector cells update from the same engine as indices and companies. Colour intensity tracks
         magnitude. The arrow is mandatory. Red is reserved for negative movement.
       </p>
-      <Heatmap sectors={state.sectors} />
+      <Heatmap sectors={state.sectors} columns={5} />
       <SiteFoot />
     </>
   );

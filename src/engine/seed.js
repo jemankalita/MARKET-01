@@ -3,7 +3,11 @@ function series(price, change = 1.24, points = 48) {
   const history = [];
   for (let i = 0; i < points; i += 1) {
     const t = i / (points - 1);
-    const wave = Math.sin(i / 6) * 0.003 + (change / 100) * t;
+    const wave =
+      Math.sin(i / 6) * 0.004 +
+      Math.sin(i / 2.3) * 0.0018 +
+      Math.cos(i / 11) * 0.0012 +
+      (change / 100) * t;
     history.push(Number((open * (1 + wave)).toFixed(2)));
   }
   history[history.length - 1] = Number(price.toFixed(2));
@@ -24,9 +28,15 @@ export const INDICES = {
   NIFTYIT: { id: "NIFTYIT", name: "NIFTY IT", region: "IN", ...series(38412.76, 1.62) },
   NIFTYPHARMA: { id: "NIFTYPHARMA", name: "NIFTY PHARMA", region: "IN", ...series(22147.32, 0.54) },
   NASDAQ: { id: "NASDAQ", name: "NASDAQ", region: "US", ...series(17421.62, 0.5) },
-  "DOW JONES": { id: "DOW JONES", name: "DOW JONES", region: "US", ...series(41221.34, 0.27) },
-  FTSE: { id: "FTSE", name: "FTSE", region: "UK", ...series(8312.21, -0.21) },
-  NIKKEI: { id: "NIKKEI", name: "NIKKEI", region: "JP", ...series(38312.45, 1.12) },
+  "DOW JONES": { id: "DOW JONES", name: "DOW JONES", region: "US", ...series(41221.34, 0.45) },
+  "S&P 500": { id: "S&P 500", name: "S&P 500", region: "US", ...series(5804.21, 0.62) },
+  DAX: { id: "DAX", name: "DAX", region: "DE", ...series(18421.11, 0.71) },
+  FTSE: { id: "FTSE", name: "FTSE", region: "UK", ...series(8312.21, -0.27) },
+  NIKKEI: { id: "NIKKEI", name: "NIKKEI", region: "JP", ...series(38912.45, 0.71) },
+  "HANG SENG": { id: "HANG SENG", name: "HANG SENG", region: "HK", ...series(17221.11, -0.41) },
+  SSE: { id: "SSE", name: "SSE", region: "CN", ...series(3124.21, 0.22) },
+  STI: { id: "STI", name: "STI", region: "SG", ...series(3421.08, -0.42) },
+  NYA: { id: "NYA", name: "NY COMP", region: "US", ...series(18402.1, 0.84) },
   BTC: { id: "BTC", name: "BTC", region: "GL", ...series(62841.0, -1.02) },
 };
 
@@ -38,6 +48,9 @@ export const SECTORS = {
   PHARMA: { id: "PHARMA", name: "PHARMA", ...series(100, 0.8, 24), volume: 44 },
   FMCG: { id: "FMCG", name: "FMCG", ...series(100, 0.3, 24), volume: 38 },
   REALESTATE: { id: "REALESTATE", name: "REAL ESTATE", ...series(100, -0.8, 24), volume: 41 },
+  METALS: { id: "METALS", name: "METALS", ...series(100, -0.6, 24), volume: 46 },
+  CONSUMER: { id: "CONSUMER", name: "CONSUMER", ...series(100, 0.4, 24), volume: 36 },
+  INFRA: { id: "INFRA", name: "INFRA", ...series(100, 0.2, 24), volume: 33 },
 };
 
 export const COMPANIES = {
@@ -46,7 +59,7 @@ export const COMPANIES = {
     slug: "reliance",
     name: "RELIANCE INDUSTRIES",
     ticker: "RELIANCE",
-    exchange: "BSE 500325  NSE RELIANCE",
+    exchange: "BSE 500325",
     sector: "ENERGY",
     cap: "19.5T",
     pe: "28.4",
@@ -116,10 +129,18 @@ export const ARTICLES = [
     kicker: "GLOBAL",
     title: "GLOBAL MARKETS SHIFT AS INVESTORS REASSESS RATE PATH",
     lede: "Markets rally as Powell hints at a more accommodative stance.",
+    byline: "MARKET/01 NEWS DESK",
+    desk: "NEW YORK / LONDON / MUMBAI",
+    body: [
+      "Equity desks in New York, London and Mumbai marked a coordinated bid after the Federal Reserve chair opened the door to a shallower rate path. The comment hit the tape before the cash open in India and re-priced banking, technology and the dollar in one move.",
+      "That is the chain this board is built to show. A policy signal is not a headline sitting beside a candle — it is the event that should rearrange volume, sector heat, and the names inside that heat. Nifty, Nasdaq and the banking book moved together. Read the coupling, not the card.",
+    ],
+    related: ["NIFTY", "NASDAQ", "BANKING"],
     time: "09:12",
     read: "04 MIN READ",
     to: "/analysis",
-    image: "hero",
+    image: "/images/mosaic.jpg",
+    position: "center",
   },
   {
     id: "02",
@@ -130,7 +151,8 @@ export const ARTICLES = [
     time: "08:47",
     read: "03 MIN READ",
     to: "/news",
-    image: "bank",
+    image: "/images/bse.jpg",
+    position: "center",
   },
   {
     id: "03",
@@ -141,7 +163,8 @@ export const ARTICLES = [
     time: "08:11",
     read: "05 MIN READ",
     to: "/news",
-    image: "tech",
+    image: "/images/posters.jpg",
+    position: "right center",
   },
   {
     id: "cycle",
@@ -163,13 +186,15 @@ export const ARTICLES = [
     time: "09:02",
     read: "02 MIN READ",
     to: "/company/reliance",
+    image: "/images/plant.jpg",
+    position: "center",
   },
 ];
 
 export const CITIES = [
-  { id: "NY", name: "NEW YORK", x: 24, y: 38, index: "NASDAQ" },
-  { id: "LN", name: "LONDON", x: 47, y: 32, index: "FTSE" },
-  { id: "MB", name: "MUMBAI", x: 68, y: 52, index: "NIFTY" },
-  { id: "TK", name: "TOKYO", x: 84, y: 38, index: "NIKKEI" },
-  { id: "SG", name: "SINGAPORE", x: 78, y: 62, index: "NIFTYIT" },
+  { id: "NY", name: "NEW YORK", x: 268, y: 186, index: "NYA" },
+  { id: "LN", name: "LONDON", x: 448, y: 156, index: "FTSE" },
+  { id: "MB", name: "MUMBAI", x: 646, y: 268, index: "NIFTY" },
+  { id: "TK", name: "TOKYO", x: 822, y: 210, index: "NIKKEI" },
+  { id: "SG", name: "SINGAPORE", x: 742, y: 328, index: "STI" },
 ];

@@ -11,6 +11,15 @@ export function formatChange(pct) {
   return `${sign}${pct.toFixed(2)}%`;
 }
 
+export function periodReturns(d1) {
+  return {
+    d1,
+    w1: Number((d1 * 1.35).toFixed(2)),
+    m1: Number((d1 * 2.4).toFixed(2)),
+    y1: Number((d1 * 6.8).toFixed(2)),
+  };
+}
+
 export function movementSymbol(pct) {
   if (pct > 0.005) return "↗";
   if (pct < -0.005) return "↘";
@@ -36,10 +45,10 @@ export function heatmapLevel(pct) {
 const FILLS = {
   "neg-strong": "#E60000",
   "neg-mid": "rgba(230, 0, 0, 0.72)",
-  "neg-light": "rgba(230, 0, 0, 0.32)",
+  "neg-light": "rgba(230, 0, 0, 0.42)",
   "pos-strong": "#000000",
   "pos-mid": "rgba(0, 0, 0, 0.78)",
-  "pos-light": "rgba(0, 0, 0, 0.18)",
+  "pos-light": "rgba(0, 0, 0, 0.38)",
   neutral: "#F2F0EA",
 };
 
@@ -77,4 +86,24 @@ export function istStamp(date = new Date()) {
     time: `${get("hour")}:${get("minute")}`,
     seconds: `${get("hour")}:${get("minute")}:${get("second")}`,
   };
+}
+
+export function istMinutes(stamp) {
+  const [hour, minute] = String(stamp).split(":").map(Number);
+  return hour * 60 + minute;
+}
+
+function inWindow(minutes, start, end) {
+  if (start <= end) return minutes >= start && minutes < end;
+  return minutes >= start || minutes < end;
+}
+
+export function deskSessions(stamp) {
+  const minutes = istMinutes(stamp);
+  return [
+    { id: "INDIA", open: inWindow(minutes, 9 * 60 + 15, 15 * 60 + 30) },
+    { id: "ASIA", open: inWindow(minutes, 5 * 60 + 30, 12 * 60) },
+    { id: "EUROPE", open: inWindow(minutes, 13 * 60 + 30, 22 * 60) },
+    { id: "US", open: inWindow(minutes, 19 * 60, 90) },
+  ];
 }

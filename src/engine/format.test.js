@@ -56,6 +56,10 @@ describe("heatmap", () => {
     expect(heatmapFill(0)).toBe("#F2F0EA");
   });
 
+  it("keeps light positive cells dark enough to read on off-white", () => {
+    expect(heatmapFill(0.3)).toBe("rgba(0, 0, 0, 0.38)");
+  });
+
   it("never uses colour-only: every cell still has a symbol", () => {
     expect(movementSymbol(heatmapLevel(-3) ? -3 : 0)).toBe("↘");
   });

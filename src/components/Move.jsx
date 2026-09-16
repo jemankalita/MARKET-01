@@ -1,39 +1,30 @@
+import { Spark } from "./Chart.jsx";
 import { formatChange, formatPrice, movementSymbol, movementTone } from "../engine/format.js";
+
+export { Spark };
 
 export function Move({ value, withPrice }) {
   const tone = movementTone(value);
-  return (
-    <span className={`data tone-${tone}`}>
-      {withPrice != null ? `${formatPrice(withPrice)} ` : null}
+  const change = (
+    <span className={`${withPrice != null ? "data move-chg" : "figure"} tone-${tone}`}>
       {movementSymbol(value)} {formatChange(value)}
     </span>
   );
-}
-
-export function Spark({ history, negative }) {
-  if (!history?.length) return null;
-  const min = Math.min(...history);
-  const max = Math.max(...history);
-  const span = max - min || 1;
-  const d = history
-    .map((v, i) => {
-      const x = (i / (history.length - 1)) * 72;
-      const y = 26 - ((v - min) / span) * 24;
-      return `${i === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)}`;
-    })
-    .join(" ");
+  if (withPrice == null) return change;
   return (
-    <svg className="spark" viewBox="0 0 72 28" aria-hidden="true">
-      <path d={d} stroke={negative ? "#E60000" : "#000"} />
-    </svg>
+    <span className="move">
+      <span className="figure">{formatPrice(withPrice)}</span>
+      {change}
+    </span>
   );
 }
 
 export function SignalBar({ label, value }) {
   return (
     <li>
-      <div className="kicker">
-        {label} <span className="data">{value}%</span>
+      <div className="signal-head">
+        <span className="kicker">{label}</span>
+        <span className="figure signal-val">{value}%</span>
       </div>
       <div className="bar" aria-hidden="true">
         <div className="bar-fill" style={{ transform: `scaleX(${value / 100})` }} />
