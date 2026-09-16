@@ -22,7 +22,7 @@ describe("createMarketState", () => {
     expect(state.indices.NIFTY.price).toBeCloseTo(25421.3, 1);
     expect(state.sectors.BANKING).toBeTruthy();
     expect(state.companies.RELIANCE.price).toBeCloseTo(2941.2, 1);
-    expect(state.live).toBe(false);
+    expect(state.live).toBe(true);
     expect(state.events).toEqual([]);
   });
 });

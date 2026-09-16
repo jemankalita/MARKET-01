@@ -10,7 +10,7 @@ const LINKS = [
 ];
 
 export function Nav({ onSearch }) {
-  const { state, toggleLive } = useMarket();
+  const { state, toggleLive, streamOpen, toggleStream } = useMarket();
 
   return (
     <header className="nav">
@@ -32,6 +32,9 @@ export function Nav({ onSearch }) {
         <span className="meta">{state.clock.time} IST</span>
         <button className="nav-live" type="button" onClick={toggleLive} aria-pressed={state.live}>
           <span className={state.live ? "live-dot on" : "live-dot"} /> LIVE
+        </button>
+        <button className="nav-live" type="button" onClick={toggleStream} aria-pressed={streamOpen}>
+          STREAM
         </button>
       </div>
     </header>

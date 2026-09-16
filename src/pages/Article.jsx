@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { EditorialImage } from "../components/EditorialImage.jsx";
 import { SiteFoot } from "./Home.jsx";
 
@@ -11,7 +12,12 @@ const TAKES = [
 export function Article() {
   return (
     <>
-      <p className="pad kicker">NEWS / GLOBAL /</p>
+      <p className="pad kicker">
+        <Link className="crumb" to="/news">
+          NEWS
+        </Link>
+        {" / GLOBAL /"}
+      </p>
       <section className="article-hero">
         <div className="pad-l hair-right">
           <h1 className="display article-display">
@@ -27,7 +33,12 @@ export function Article() {
           <p className="meta">MARKET/01 RESEARCH · 16 SEP 2026 · 06 MIN READ</p>
         </div>
         <div className="hero-media">
-          <EditorialImage src="/images/bse.jpg" alt="Financial district towers" position="center top" />
+          <EditorialImage
+            src="/images/bse.jpg"
+            alt="Financial district towers"
+            position="center top"
+            summary="Towers over the cash open — the next cycle is a chain of rates, credit and confirmation sectors, not a single print."
+          />
         </div>
       </section>
       <div className="article-body">

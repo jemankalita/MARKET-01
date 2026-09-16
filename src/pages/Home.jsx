@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { EditorialImage } from "../components/EditorialImage.jsx";
 import { Heatmap } from "../components/Heatmap.jsx";
+import { HoverTip } from "../components/HoverTip.jsx";
 import { Move, Spark, SignalBar } from "../components/Move.jsx";
 import { useMarket } from "../context/MarketProvider.jsx";
 import { ARTICLES } from "../engine/seed.js";
@@ -54,8 +55,12 @@ export function Home() {
           const row = state.indices[id];
           return (
             <Link key={id} to="/markets" className="idx">
-              <span className="kicker">{row.name}</span>
-              <Move value={row.change} withPrice={row.price} />
+              <span className="ticker-name">{row.name}</span>
+              <HoverTip
+                summary={`${row.name} demo print ${row.price.toLocaleString("en-IN")} · ${row.change >= 0 ? "bid" : "offer"} ${row.change.toFixed(2)}%. Live simulated tape.`}
+              >
+                <Move value={row.change} withPrice={row.price} />
+              </HoverTip>
               <Spark history={row.history} negative={row.change < 0} width={240} height={80} stretch />
             </Link>
           );
@@ -63,7 +68,7 @@ export function Home() {
       </section>
 
       <section className="home-triptych">
-        <Link className="panel story-lead" to={story.to}>
+        <Link className="panel story-lead" to={story.to} title={story.summary || story.lede}>
           <p className="kicker">
             <span className="story-num">01</span> TOP STORY
             <span className="story-desk"> · {story.kicker} · {story.desk}</span>

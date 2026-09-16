@@ -81,6 +81,9 @@ export function WorldMap({ indices }) {
               >
                 <div className="kicker">{c.name}</div>
                 <Move value={cityMove(c, indices)} />
+                <p className="city-summary">
+                  {c.name} desk · {c.index} demo tape. Hover a city for the local move.
+                </p>
               </div>
             );
           })}

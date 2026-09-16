@@ -13,6 +13,7 @@ export function MarketProvider({ children }) {
   const [state, setState] = useState(() => createMarketState());
   const [searchOpen, setSearchOpen] = useState(false);
   const [trace, setTrace] = useState(null);
+  const [streamOpen, setStreamOpen] = useState(false);
   const liveRef = useRef(false);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export function MarketProvider({ children }) {
         }
         return next;
       });
-    }, 1100);
+    }, 700);
     return () => window.clearInterval(id);
   }, []);
 
@@ -44,10 +45,13 @@ export function MarketProvider({ children }) {
       trace,
       setTrace,
       toggleLive: () => setState((s) => ({ ...s, live: !s.live })),
+      streamOpen,
+      toggleStream: () => setStreamOpen((open) => !open),
+      closeStream: () => setStreamOpen(false),
       fireEvent: (id) => setState((s) => applyEvent(s, id)),
       openTrace: (event) => setTrace(event),
     }),
-    [state, searchOpen, trace],
+    [state, searchOpen, trace, streamOpen],
   );
 
   return <MarketContext.Provider value={value}>{children}</MarketContext.Provider>;

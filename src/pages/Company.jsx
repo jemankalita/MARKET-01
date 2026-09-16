@@ -10,6 +10,7 @@ import { COMPANY_TABS, companyDossier } from "../engine/companyDossier.js";
 import { formatPrice } from "../engine/format.js";
 
 const RANGES = ["1D", "1W", "1M", "6M", "1Y", "MAX"];
+const RANGE_POINTS = { "1D": 16, "1W": 32, "1M": 48, "6M": 64, "1Y": 80, MAX: 96 };
 const SECTOR_IMAGE = {
   ENERGY: "/images/plant.jpg",
   BANKING: "/images/bse.jpg",
@@ -117,6 +118,7 @@ function Overview({ company, dossier }) {
         <EditorialImage
           src={SECTOR_IMAGE[company.sector] ?? "/images/posters.jpg"}
           alt={`${company.sector} operations`}
+          summary={`${company.name} sits in ${company.sector}. This still is the operating picture behind the demo quote.`}
         />
         <p className="media-quote kicker">
           {company.sector}
@@ -131,20 +133,30 @@ function Overview({ company, dossier }) {
 }
 
 function ChartPane({ company, signals }) {
+  const [range, setRange] = useState("1D");
+  const points = RANGE_POINTS[range] ?? company.history.length;
+  const history = company.history.slice(-points);
+
   return (
     <>
       <div className="split">
         <div className="hair-right">
-          <div className="pad kicker chart-ranges">
-            {RANGES.map((range, i) => (
-              <span key={range} className={i === 0 ? "range on" : "range"}>
-                {range}
-              </span>
+          <div className="pad kicker chart-ranges" role="tablist" aria-label="Chart range">
+            {RANGES.map((item) => (
+              <button
+                key={item}
+                type="button"
+                className={item === range ? "range on" : "range"}
+                onClick={() => setRange(item)}
+                aria-pressed={item === range}
+              >
+                {item}
+              </button>
             ))}
           </div>
           <div className="chart-wrap">
             <PriceChart
-              history={company.history}
+              history={history}
               negative={company.change < 0}
               label={`${company.name} price chart`}
             />

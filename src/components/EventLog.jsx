@@ -1,19 +1,30 @@
 import { useMarket } from "../context/MarketProvider.jsx";
 
 export function EventLog() {
-  const { state, openTrace } = useMarket();
-  if (!state.live && state.events.length === 0) return null;
+  const { state, openTrace, streamOpen, closeStream } = useMarket();
+  if (!streamOpen) return null;
 
   return (
-    <aside className="event-log block-minor" aria-label="Event log">
-      <div className="pad kicker">{state.live ? "● DATA STREAM ACTIVE" : "EVENT LOG"} · DEMO</div>
-      {state.events.map((ev) => (
-        <button key={ev.seq} type="button" onClick={() => openTrace(ev)}>
-          {ev.time}
-          <br />
-          &gt; {ev.label}
+    <aside className="event-log" aria-label="Data stream">
+      <div className="event-log-head">
+        <p className="kicker">
+          {state.live ? "DATA STREAM · LIVE" : "EVENT LOG"} · DEMO
+        </p>
+        <button type="button" className="event-log-close" onClick={closeStream} aria-label="Hide data stream">
+          HIDE
         </button>
-      ))}
+      </div>
+      {state.events.length === 0 ? (
+        <p className="event-log-empty">No events yet. Keep LIVE on to fill the tape.</p>
+      ) : (
+        state.events.map((ev) => (
+          <button key={ev.seq} type="button" onClick={() => openTrace(ev)}>
+            {ev.time}
+            <br />
+            &gt; {ev.label}
+          </button>
+        ))
+      )}
     </aside>
   );
 }

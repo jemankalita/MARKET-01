@@ -63,7 +63,7 @@ export function Global() {
               {GLOBAL_BOARD.map((id) => {
                 const row = state.indices[id];
                 return (
-                  <li key={id} className="index-row">
+                  <li key={id} className="index-row" title={`${row.name} demo ${row.price}`}>
                     <span className="index-name">{row.name}</span>
                     <Spark history={row.history} negative={row.change < 0} width={72} height={22} />
                     <span className="figure index-price">{formatPrice(row.price)}</span>

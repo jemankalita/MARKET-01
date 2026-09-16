@@ -1,7 +1,7 @@
 import { clamp, istStamp } from "./format.js";
-import { ARTICLES, COMPANIES, INDICES, SECTORS } from "./seed.js";
+import { ARTICLES, COMMODITIES, COMPANIES, CURRENCIES, INDICES, SECTORS } from "./seed.js";
 
-export { ARTICLES, COMPANIES, INDICES, SECTORS };
+export { ARTICLES, COMMODITIES, COMPANIES, CURRENCIES, INDICES, SECTORS };
 
 function copySeries(item) {
   return {
@@ -16,11 +16,13 @@ function cloneMap(map) {
 
 export function createMarketState() {
   return {
-    live: false,
+    live: true,
     clock: istStamp(),
     indices: cloneMap(INDICES),
     sectors: cloneMap(SECTORS),
     companies: cloneMap(COMPANIES),
+    commodities: cloneMap(COMMODITIES),
+    currencies: cloneMap(CURRENCIES),
     sentiment: 72,
     signals: {
       momentum: 82,
@@ -53,16 +55,22 @@ function noise(rng, scale) {
 
 export function tickMarket(state, rng = Math.random) {
   const tickOne = (item, scale) =>
-    bump(item, item.momentum * 0.18 + noise(rng, scale), noise(rng, 1.4));
+    bump(item, item.momentum * 0.22 + noise(rng, scale), noise(rng, 1.8));
 
   const indices = Object.fromEntries(
-    Object.entries(state.indices).map(([k, v]) => [k, tickOne(v, 0.12)]),
+    Object.entries(state.indices).map(([k, v]) => [k, tickOne(v, 0.22)]),
   );
   const sectors = Object.fromEntries(
-    Object.entries(state.sectors).map(([k, v]) => [k, tickOne(v, 0.18)]),
+    Object.entries(state.sectors).map(([k, v]) => [k, tickOne(v, 0.32)]),
   );
   const companies = Object.fromEntries(
-    Object.entries(state.companies).map(([k, v]) => [k, tickOne(v, 0.22)]),
+    Object.entries(state.companies).map(([k, v]) => [k, tickOne(v, 0.38)]),
+  );
+  const commodities = Object.fromEntries(
+    Object.entries(state.commodities).map(([k, v]) => [k, tickOne(v, 0.28)]),
+  );
+  const currencies = Object.fromEntries(
+    Object.entries(state.currencies).map(([k, v]) => [k, tickOne(v, 0.16)]),
   );
 
   const avgChange =
@@ -74,6 +82,8 @@ export function tickMarket(state, rng = Math.random) {
     indices,
     sectors,
     companies,
+    commodities,
+    currencies,
     sentiment: clamp(Math.round(58 + avgChange * 12), 18, 92),
     signals: {
       momentum: clamp(Math.round(70 + avgChange * 8 + noise(rng, 4)), 12, 99),
@@ -159,6 +169,8 @@ export function applyEvent(state, eventId, rng = Math.random) {
     indices: cloneMap(state.indices),
     sectors: cloneMap(state.sectors),
     companies: cloneMap(state.companies),
+    commodities: cloneMap(state.commodities),
+    currencies: cloneMap(state.currencies),
     signals: { ...state.signals },
   };
 
@@ -238,6 +250,18 @@ export function searchIndex(query) {
   Object.values(SECTORS).forEach((s) => {
     if (s.name.toLowerCase().includes(q) || s.id.toLowerCase().includes(q)) {
       hits.push({ type: "SECTOR", title: `${s.name} / INDIA`, to: "/markets" });
+    }
+  });
+
+  Object.values(COMMODITIES).forEach((c) => {
+    if (c.name.toLowerCase().includes(q) || c.id.toLowerCase().includes(q)) {
+      hits.push({ type: "COMMODITY", title: c.name, to: "/markets" });
+    }
+  });
+
+  Object.values(CURRENCIES).forEach((c) => {
+    if (c.name.toLowerCase().includes(q) || c.id.toLowerCase().includes(q)) {
+      hits.push({ type: "FX", title: c.name, to: "/markets" });
     }
   });
 

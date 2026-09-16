@@ -40,6 +40,35 @@ export const INDICES = {
   BTC: { id: "BTC", name: "BTC", region: "GL", ...series(62841.0, -1.02) },
 };
 
+export const COMMODITIES = {
+  GOLD: { id: "GOLD", name: "GOLD", unit: "USD/OZ", ...series(2384.6, 0.42) },
+  SILVER: { id: "SILVER", name: "SILVER", unit: "USD/OZ", ...series(28.14, 0.86) },
+  CRUDE: { id: "CRUDE", name: "BRENT CRUDE", unit: "USD/BBL", ...series(82.41, -0.54) },
+  NATGAS: { id: "NATGAS", name: "NATURAL GAS", unit: "USD/MMBTU", ...series(2.86, 1.12) },
+  COPPER: { id: "COPPER", name: "COPPER", unit: "USD/LB", ...series(4.21, 0.31) },
+  WTI: { id: "WTI", name: "WTI CRUDE", unit: "USD/BBL", ...series(78.92, -0.38) },
+};
+
+export const CURRENCIES = {
+  USDINR: { id: "USDINR", name: "USD / INR", unit: "INR", ...series(83.42, 0.12) },
+  EURINR: { id: "EURINR", name: "EUR / INR", unit: "INR", ...series(90.18, -0.21) },
+  GBPINR: { id: "GBPINR", name: "GBP / INR", unit: "INR", ...series(108.64, 0.18) },
+  JPYINR: { id: "JPYINR", name: "JPY / INR", unit: "INR", ...series(0.562, -0.08) },
+  DXY: { id: "DXY", name: "US DOLLAR INDEX", unit: "DXY", ...series(104.21, 0.09) },
+  EURUSD: { id: "EURUSD", name: "EUR / USD", unit: "USD", ...series(1.0842, -0.14) },
+};
+
+export const IMAGE_SUMMARIES = {
+  "/images/bse.jpg":
+    "Bombay Stock Exchange, Mumbai — Asia’s oldest bourse. The cash tape still opens here every morning.",
+  "/images/mosaic.jpg":
+    "A mosaic of global desks: rate prints, index boards and overnight futures moving as one tape.",
+  "/images/posters.jpg":
+    "Street posters for a tech rebound — AI names reclaiming the tape after a selling stretch.",
+  "/images/plant.jpg":
+    "Energy infrastructure behind Reliance’s shift from oil to renewables and green hydrogen.",
+};
+
 export const SECTORS = {
   TECH: { id: "TECH", name: "TECH", ...series(100, 2.4, 24), volume: 71 },
   BANKING: { id: "BANKING", name: "BANKING", ...series(100, 1.1, 24), volume: 64 },
@@ -136,6 +165,8 @@ export const ARTICLES = [
       "That is the chain this board is built to show. A policy signal is not a headline sitting beside a candle — it is the event that should rearrange volume, sector heat, and the names inside that heat. Nifty, Nasdaq and the banking book moved together. Read the coupling, not the card.",
     ],
     related: ["NIFTY", "NASDAQ", "BANKING"],
+    summary:
+      "Powell opened the door to a shallower rate path. Banking, tech and the dollar repriced together before the India cash open.",
     time: "09:12",
     read: "04 MIN READ",
     to: "/analysis",
@@ -153,6 +184,7 @@ export const ARTICLES = [
     to: "/news",
     image: "/images/bse.jpg",
     position: "center",
+    summary: "India’s private banks are carrying the tape: credit is growing and asset quality is no longer the scare.",
   },
   {
     id: "03",
@@ -165,6 +197,7 @@ export const ARTICLES = [
     to: "/news",
     image: "/images/posters.jpg",
     position: "right center",
+    summary: "AI demand is back on the bid. Tech indices are reclaiming the ground they lost in the last selling stretch.",
   },
   {
     id: "cycle",
@@ -188,6 +221,33 @@ export const ARTICLES = [
     to: "/company/reliance",
     image: "/images/plant.jpg",
     position: "center",
+    summary: "Reliance tilts capex toward green hydrogen and solar manufacturing while the energy tape stays heavy.",
+  },
+  {
+    id: "05",
+    kind: "NEWS",
+    kicker: "BUSINESS",
+    title: "CREDIT GROWTH HOLDS AS BOARDROOMS LOCK FY27 CAPEX",
+    lede: "Private banks keep the loan book expanding even as treasurers wait on the next rate cut.",
+    time: "07:58",
+    read: "04 MIN READ",
+    to: "/news",
+    image: "/images/bse.jpg",
+    position: "center",
+    summary: "Business desks are watching credit growth, not slogans: capex plans are being locked while the cost of funds still hangs.",
+  },
+  {
+    id: "06",
+    kind: "NEWS",
+    kicker: "OPINION",
+    title: "THE TAPE IS A CHAIN, NOT A HEADLINE",
+    lede: "A rate comment should rearrange heat, volume and names — not sit beside a candle.",
+    time: "07:12",
+    read: "03 MIN READ",
+    to: "/analysis",
+    image: "/images/mosaic.jpg",
+    position: "center",
+    summary: "Opinion: stop collecting cards. Read the coupling between policy, sector heat and the companies inside that heat.",
   },
 ];
 
