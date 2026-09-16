@@ -1,6 +1,6 @@
 # MARKET/01
 
-**REAL DATA. REAL CONTEXT.**
+**v0.2.0** · **REAL DATA. REAL CONTEXT.**
 
 Swiss Brutalist financial intelligence for **Redefine** — a 24-hour designathon.
 
@@ -12,7 +12,7 @@ EVENT → NEWS → VOLUME → PRICE → SECTOR → COMPANY
 
 This is an original information system. It is not a Bloomberg clone, not a SaaS dashboard, and not cyberpunk.
 
-All figures are **SIMULATED / DEMO DATA**. No live exchange feed is connected.
+All figures are **SIMULATED / DEMO DATA**. The tape moves in the browser. No live exchange feed is connected.
 
 ---
 
@@ -23,14 +23,14 @@ Most financial products split data, news, and analysis into disconnected feeds. 
 | Page | What it teaches |
 | --- | --- |
 | **Home** | The poster. Indices, story, heatmap, signal bars in one first viewport. |
-| **Markets** | The tape. Names, prices, moves, charts as a table — not cards. |
-| **Company** | One name in depth: quote → tabs → chart / financials / news / holdings. |
-| **News** | Numbered editorial list. A story is a signal with a desk and a ticker. |
+| **Markets** | The tape. Working desks: INDICES / HEATMAP / SECTORS / COMMODITIES / CURRENCIES. |
+| **Company** | One name in depth: quote → tabs → chart / financials / news / holdings. Ranges on the chart. |
+| **News** | Numbered editorial list. Desks: TOP STORIES / INDIA / GLOBAL / BUSINESS / TECH / OPINION. |
 | **Analysis** | Long read. Same type, same grid, slower measure. |
 | **Sectors** | Heat as a map of the book. |
 | **Global** | Sessions, cities, board. The market that never sleeps. |
 
-Live Mode is a **correlated client-side simulation**. When an event fires, related sectors, names, heatmap cells, and the event log move together.
+**LIVE** is on by default: a **correlated client-side simulation**. Prices, sparklines, heatmap cells, and company quotes drift together. When an event fires, related names move as one tape. **STREAM** in the masthead opens or hides the data-stream overlay so it never covers the board unless you ask for it. Analysis crumbs (`NEWS`) return to the news desk.
 
 ---
 
@@ -159,9 +159,13 @@ Chart y-axis labels (e.g. `2194`) no longer clipped. `ENERGY DRIVES PROGRESS` dr
 
 Every stock: **OVERVIEW / CHART / FINANCIALS / NEWS / ANALYSIS / HOLDINGS**, with authored demo data. Company is a dossier, not a single chart dump.
 
+### v15 — Live demo tape
+
+The site breathes. LIVE starts on. Indices, sectors, companies, commodities, and FX tick in-browser. Markets desks actually switch. News desks actually filter. Hover summaries on stories, heat, and cities. STREAM is a masthead toggle (off by default) so the event overlay does not sit on the photograph. Article `NEWS` crumb returns to `/news`. Package version **0.2.0**.
+
 ### FINAL — This push
 
-This README, the current working tree, and the design system as judged. **Final is the version to push.** It is the product as it stands after v1–v14: original Swiss Brutalist financial intelligence, Higgsfield-led comps, Dribbble/Pinterest as inspo, and human edit on top.
+**v0.2.0 / v15.** This README, the current working tree, and the design system as judged. Original Swiss Brutalist financial intelligence, Higgsfield-led comps, Dribbble/Pinterest as inspo, human edit on top — now with a moving demo tape.
 
 ---
 
@@ -187,7 +191,7 @@ npm run build
 
 Demo path for judges (desktop first, ~2–3 minutes):
 
-**Home → Markets → Company (tabs) → Event Trace → Analysis → Global → LIVE**
+**Home → Markets (desks) → Company (tabs) → News (desks) → Analysis (NEWS crumb) → Global → STREAM → LIVE**
 
 ---
 
